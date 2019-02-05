@@ -1,0 +1,60 @@
+<?php
+
+function product_filter_function(){
+  //echo "<script>console.log( 'Debug Objects: " . implode( ',', $args) . "' );</script>";
+
+  $args = array(
+    'post_type' => 'product',
+    'orderby' => 'date'
+  );
+
+
+  // for taxonomies / categories
+  if( isset( $_POST['categoryFilter'] ) ){
+    $filter = $_POST['categoryFilter'];
+    $args['tax_query'] = array(
+      array(
+        'taxonomy' => 'category',
+        'field' => 'id',
+        'terms' => $filter
+      )
+    );
+  }
+//echo "<script>console.log( 'Debug Objects: test' );</script>";
+  //echo "<script>console.log( 'Debug Objects: " . implode( ',', $args) . "' );</script>";
+
+  if( isset( $_POST['productFilter'] ) && !empty($_POST['productFilter'])){
+    $filter = $_POST['productFilter'];
+    //echo "<script>console.log( 'Debug Objects: '".$filter."' );</script>";
+    $args['post__in'] = array($filter);
+  }
+
+  $posts = get_posts( $args );
+
+  foreach ( $posts as $key => $post) {
+    $postArray[$key]= $post->post_title;
+  }
+  // return result as json
+  $json_result = json_encode( $posts );
+  die( $json_result );
+/*
+  $query = new WP_Query( $args );
+
+  if( $query->have_posts() ) :
+    //wp_send_json($query);
+    while( $query->have_posts() ): $query->the_post();
+      //get_post();
+      get_template_part( 'content-product', get_post_format() );
+    endwhile;
+    wp_reset_postdata();
+  else :
+    echo 'No posts found';
+  endif;
+
+  die();*/
+}
+
+
+add_action('wp_ajax_productfilter', 'product_filter_function');
+add_action('wp_ajax_nopriv_productfilter', 'product_filter_function');
+?>

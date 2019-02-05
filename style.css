@@ -11,7 +11,39 @@
  Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
  Text Domain:  twenty-fifteen-child
 */
+.wrap.product {
 
-body {
-	background: red;
+    color: #2b3e50;
+    font-family: gotham a,gotham b;
+    font-weight: 400;
+    font-style: normal;
+
 }
+.wrap.product .page-header h2.page-title {
+	font-size: 35px;
+	line-height: 1em;
+	font-family: gotham a,gotham b;
+	font-weight: 700;
+	font-style: normal;
+	color: rgb(0, 114, 188);
+}
+
+.wrap.product .entry-title {
+	font-weight: 700;
+}
+
+.wrap.product .widget-title {
+		color: #fff;
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #2b3e50;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.wrap.product #main article  {
+		margin-bottom: 2em;
+    padding: 10px;
+    background: #eee;
+
+}
+.wrap.product #main article p {margin: 0;}
