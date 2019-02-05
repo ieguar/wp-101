@@ -1,14 +1,11 @@
 <?php
 
 function product_filter_function(){
-  //echo "<script>console.log( 'Debug Objects: " . implode( ',', $args) . "' );</script>";
 
   $args = array(
     'post_type' => 'product',
     'orderby' => 'date'
   );
-
-
   // for taxonomies / categories
   if( isset( $_POST['categoryFilter'] ) ){
     $filter = $_POST['categoryFilter'];
@@ -20,12 +17,8 @@ function product_filter_function(){
       )
     );
   }
-//echo "<script>console.log( 'Debug Objects: test' );</script>";
-  //echo "<script>console.log( 'Debug Objects: " . implode( ',', $args) . "' );</script>";
-
   if( isset( $_POST['productFilter'] ) && !empty($_POST['productFilter'])){
     $filter = $_POST['productFilter'];
-    //echo "<script>console.log( 'Debug Objects: '".$filter."' );</script>";
     $args['post__in'] = array($filter);
   }
 
@@ -37,21 +30,22 @@ function product_filter_function(){
   // return result as json
   $json_result = json_encode( $posts );
   die( $json_result );
-/*
-  $query = new WP_Query( $args );
+  
+  /*
+    $query = new WP_Query( $args );
 
-  if( $query->have_posts() ) :
-    //wp_send_json($query);
-    while( $query->have_posts() ): $query->the_post();
-      //get_post();
-      get_template_part( 'content-product', get_post_format() );
-    endwhile;
-    wp_reset_postdata();
-  else :
-    echo 'No posts found';
-  endif;
+    if( $query->have_posts() ) :
+      //wp_send_json($query);
+      while( $query->have_posts() ): $query->the_post();
+        //get_post();
+        get_template_part( 'content-product', get_post_format() );
+      endwhile;
+      wp_reset_postdata();
+    else :
+      echo 'No posts found';
+    endif;
 
-  die();*/
+    die();*/
 }
 
 
