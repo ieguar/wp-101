@@ -1,4 +1,4 @@
-<div class="p-3 bg-lightGray product-documents-wrapper">
-  <div class="h4"><?php the_title(); ?></div>
-  <?php the_content(); ?>
-</div>
+<article id="product-<?php the_ID() ?>" data-id="<?php the_ID() ?>" >
+  <h3 class="entry-title"><?php the_title()?></h3>
+  <?php the_content() ?>
+</article>

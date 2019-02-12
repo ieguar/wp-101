@@ -1,39 +1,27 @@
 <?php
-
 function product_filter_function(){
-
-  $args = array(
-    'post_type' => 'product',
-    'orderby' => 'date'
-  );
-  // for taxonomies / categories
-  if( isset( $_POST['categoryFilter'] ) ){
-    $filter = $_POST['categoryFilter'];
-    $args['tax_query'] = array(
-      array(
-        'taxonomy' => 'category',
-        'field' => 'id',
-        'terms' => $filter
-      )
+    $args = array(
+      'post_type' => 'product',
+      'orderby' => 'date'
     );
-  }
-  if( isset( $_POST['productFilter'] ) && !empty($_POST['productFilter'])){
-    $filter = $_POST['productFilter'];
-    $args['post__in'] = array($filter);
-  }
+    // for taxonomies / categories
+    if( isset( $_POST['categoryFilter'] ) ){
+      $filter = $_POST['categoryFilter'];
+      $args['tax_query'] = array(
+        array(
+          'taxonomy' => 'category',
+          'field' => 'id',
+          'terms' => $filter
+        )
+      );
+    }
+    // product filter
+    if( isset( $_POST['productFilter'] ) && !empty($_POST['productFilter'])){
+      $filter = $_POST['productFilter'];
+      $args['post__in'] = array($filter);
+    }
 
-  $posts = get_posts( $args );
-
-  foreach ( $posts as $key => $post) {
-    $postArray[$key]= $post->post_title;
-  }
-  // return result as json
-  $json_result = json_encode( $posts );
-  die( $json_result );
-  
-  /*
     $query = new WP_Query( $args );
-
     if( $query->have_posts() ) :
       //wp_send_json($query);
       while( $query->have_posts() ): $query->the_post();
@@ -45,7 +33,7 @@ function product_filter_function(){
       echo 'No posts found';
     endif;
 
-    die();*/
+    die();
 }
 
 

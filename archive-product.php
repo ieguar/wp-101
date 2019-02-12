@@ -7,12 +7,13 @@
 	</header>
   <div id="primary" class="content-area">
     <div id="main" class="site-main">
-      <?php if ( have_posts() ) : while ( have_posts() ) : the_post();?>
-      <article id="product-<?php the_ID() ?>" >
-        <h3 class="entry-title"><?php the_title()?></h3>
-        <?php the_content() ?>
-      </article>
-      <?php endwhile; endif;?>
+      <?php
+			if ( have_posts() ) : while ( have_posts() ) : the_post();
+
+				get_template_part( 'content-product', get_post_format() );
+
+			endwhile; endif;
+			?>
     </div>
   </div>
   <div id="secondary" class="widget-area">
@@ -69,17 +70,15 @@
             $('#main').html('Processing...'); // changing the button label
           },
           success:function(data){
-            $('#main').html("");
-            $("#productFilter").html("<option value=''>All Products</option>");
-            $.each( jQuery.parseJSON( data ), function( key, post ) {
-              $("#productFilter").append("<option value='"+post.ID+"'>"+post.post_title+"</option>");
-              $('#main').append(
-                '<article id="post-'+post.post_id+'">\
-                  <h3 class="entry-title">'+post.post_title+'</h3>\
-                  '+post.post_content+'\
-                </article>');
-            });
 
+            $("#productFilter").html("<option value=''>All Products</option>");
+            $('#main')
+              .html(data)
+              .find("article").each(function(){
+              var id = $(this).attr("data-id");
+              var title = $(this).find('.entry-title').text();
+              $("#productFilter").append("<option value='"+id+"'>"+title+"</option>");
+            });
           }
         });
         return false;

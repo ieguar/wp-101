@@ -88,8 +88,10 @@ function product_category_taxonomy() {
     ),
     'rewrite' => array( 'slug' => $prefix."category" ),
   ));
-
-//get_template_directory()
-   require_once get_theme_file_path() . '/filter-ajax.php';
+  require_once get_theme_file_path() . '/filter-ajax.php';
 }
+
+
+
+
 ?>
